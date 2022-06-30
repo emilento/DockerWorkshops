@@ -1,0 +1,30 @@
+services:
+  api:
+    container_name: api
+    image: emilento/sampleapp
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Serilog__Using__1=Serilog.Sinks.Seq
+      - Serilog__WriteTo__1__Name=Seq
+      - Serilog__WriteTo__1__Args__serverUrl=http://seq:5341
+    depends_on:
+      - seq
+
+  seq:
+    container_name: seq
+    image: datalust/seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5340:80
+      - 5341:5341
+    volumes:
+      - seq_data:/data
+
+volumes:
+  seq_data: {}
