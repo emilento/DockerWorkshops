@@ -1,5 +1,6 @@
 using DockerWorkshops;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,8 @@ builder.Services.AddDbContext<SampleDbContext>(options =>
         builder.Configuration.GetConnectionString(nameof(SampleDbContext))));
         
 builder.Services.AddHealthChecks()
-    .AddDbContextCheck<SampleDbContext>();
+    .AddDbContextCheck<SampleDbContext>()
+    .ForwardToPrometheus();
 
 var app = builder.Build();
 

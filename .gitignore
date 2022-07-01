@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 *.ncrunchsolution
-.docker/
+.docker/mssql
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
