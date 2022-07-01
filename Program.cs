@@ -42,6 +42,7 @@ app.UseAuthorization();
 
 app.MapHealthChecks("/healthz");
 app.MapControllers();
+app.MapMetrics();
 
 if (string.Equals(Environment.GetEnvironmentVariable("RUN_MIGRATIONS_ON_STARTUP"), bool.TrueString, StringComparison.OrdinalIgnoreCase))
 {
