@@ -12,6 +12,7 @@ services:
       - Serilog__Using__1=Serilog.Sinks.Seq
       - Serilog__WriteTo__1__Name=Seq
       - Serilog__WriteTo__1__Args__serverUrl=http://seq:5341
+      - ConnectionStrings__SampleDbContext=Data Source=database;Initial Catalog=docker-workshops;User Id=sa;Password=HappyTeam@2022;
     depends_on:
       - seq
       - database
