@@ -9,6 +9,7 @@ services:
       - 5000:5000
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - RUN_MIGRATIONS_ON_STARTUP=true
       - Serilog__Using__1=Serilog.Sinks.Seq
       - Serilog__WriteTo__1__Name=Seq
       - Serilog__WriteTo__1__Args__serverUrl=http://seq:5341

@@ -41,4 +41,13 @@ app.UseAuthorization();
 app.MapHealthChecks("/healthz");
 app.MapControllers();
 
+if (string.Equals(Environment.GetEnvironmentVariable("RUN_MIGRATIONS_ON_STARTUP"), bool.TrueString, StringComparison.OrdinalIgnoreCase))
+{
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<SampleDbContext>();
+    Log.Information($"Running database migrations ({dbContext.GetType().Name})...");
+    await dbContext.Database.MigrateAsync();
+    Log.Information($"Migrations completed ({dbContext.GetType().Name}).");
+}
+
 app.Run();
