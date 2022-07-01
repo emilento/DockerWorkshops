@@ -1,3 +1,5 @@
+using DockerWorkshops;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +18,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHealthChecks();
+builder.Services.AddDbContext<SampleDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString(nameof(SampleDbContext))));
+        
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<SampleDbContext>();
 
 var app = builder.Build();
 
